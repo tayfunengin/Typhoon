@@ -1,8 +1,16 @@
+using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Typhoon.Respository.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var conntectionString = builder.Configuration.GetConnectionString("TyphoonDbConnectionString");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(conntectionString);
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
