@@ -25,6 +25,7 @@ namespace Typhoon.Service
             this._unitOfWork = unitOfWork;
             this._mapper = mapper;
         }
+
         public async Task<BaseResponse> CreateAsync(TCreateDto createDto)
         {
             // TODO: validator ekle.
@@ -135,6 +136,7 @@ namespace Typhoon.Service
             if (entity is null)
                 throw new Exception("Not found");
 
+            entity.UpdatedDate = DateTime.Now;
             _mapper.Map(updateDto, entity);
             await _unitOfWork.SaveChanges();
             response.Data = entity;
@@ -155,6 +157,7 @@ namespace Typhoon.Service
                     throw new Exception("Not found");
                 else
                 {
+                    result.UpdatedDate = DateTime.Now;
                     entityList.Add(result);
                 }
             }

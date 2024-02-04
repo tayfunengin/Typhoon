@@ -1,12 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Typhoon.Core
+﻿namespace Typhoon.Core
 {
     public abstract class BaseResponse
     {
         public bool Success { get; set; }
         public string Message { get; set; }
-        public IEnumerable<ValidationResult> ValidationErrors { get; set; }
 
         public BaseResponse(bool success, string message)
         {

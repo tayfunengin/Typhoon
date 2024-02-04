@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Typhoon.API", "Typhoon.API\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Typhoon.Respository", "Typhoon.Respository\Typhoon.Respository.csproj", "{866FA292-C4A2-45E8-943C-E17AEF57C0A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typhoon.Core", "Typhoon.Core\Typhoon.Core.csproj", "{45B1352F-A32C-4711-8A06-132EADDEA952}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Typhoon.Core", "Typhoon.Core\Typhoon.Core.csproj", "{45B1352F-A32C-4711-8A06-132EADDEA952}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typhoon.Service", "Typhoon.Service\Typhoon.Service.csproj", "{89253905-BC31-4748-90FA-3CABDC1E8258}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Typhoon.Service", "Typhoon.Service\Typhoon.Service.csproj", "{89253905-BC31-4748-90FA-3CABDC1E8258}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typhoon.Domain", "Typhoon.Domain\Typhoon.Domain.csproj", "{6C160143-AE97-4F56-AF43-FBD01B25CF11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{89253905-BC31-4748-90FA-3CABDC1E8258}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89253905-BC31-4748-90FA-3CABDC1E8258}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89253905-BC31-4748-90FA-3CABDC1E8258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C160143-AE97-4F56-AF43-FBD01B25CF11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C160143-AE97-4F56-AF43-FBD01B25CF11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C160143-AE97-4F56-AF43-FBD01B25CF11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C160143-AE97-4F56-AF43-FBD01B25CF11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
