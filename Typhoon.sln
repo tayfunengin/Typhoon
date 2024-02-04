@@ -5,7 +5,11 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Typhoon.API", "Typhoon.API\Typhoon.API.csproj", "{49CC04AD-3136-42EB-9EC8-D5734A57C473}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typhoon.Respository", "Typhoon.Respository\Typhoon.Respository.csproj", "{866FA292-C4A2-45E8-943C-E17AEF57C0A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Typhoon.Respository", "Typhoon.Respository\Typhoon.Respository.csproj", "{866FA292-C4A2-45E8-943C-E17AEF57C0A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typhoon.Core", "Typhoon.Core\Typhoon.Core.csproj", "{45B1352F-A32C-4711-8A06-132EADDEA952}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typhoon.Service", "Typhoon.Service\Typhoon.Service.csproj", "{89253905-BC31-4748-90FA-3CABDC1E8258}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{866FA292-C4A2-45E8-943C-E17AEF57C0A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{866FA292-C4A2-45E8-943C-E17AEF57C0A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{866FA292-C4A2-45E8-943C-E17AEF57C0A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45B1352F-A32C-4711-8A06-132EADDEA952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45B1352F-A32C-4711-8A06-132EADDEA952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45B1352F-A32C-4711-8A06-132EADDEA952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45B1352F-A32C-4711-8A06-132EADDEA952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89253905-BC31-4748-90FA-3CABDC1E8258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89253905-BC31-4748-90FA-3CABDC1E8258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89253905-BC31-4748-90FA-3CABDC1E8258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89253905-BC31-4748-90FA-3CABDC1E8258}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
