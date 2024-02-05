@@ -29,12 +29,11 @@ namespace Typhoon.Service
         public async Task<BaseResponse> CreateAsync(TCreateDto createDto)
         {
             // TODO: validator ekle.
-            var response = new BaseEntityResponse(true);
+            var response = new BaseEntityResponse<TResult>(true);
 
             var entity = _mapper.Map<TEntity>(createDto);
             await _repository.AddAsync(entity);
             await _unitOfWork.SaveChanges();
-
 
             response.Data = _mapper.Map<TResult>(entity);
 
@@ -43,7 +42,7 @@ namespace Typhoon.Service
 
         public async Task<BaseResponse> CreateRangeAsync(IEnumerable<TCreateDto> createDtos)
         {
-            var response = new BaseEntityResponse(true);
+            var response = new BaseEntityResponse<IEnumerable<TResult>>(true);
 
             var entities = _mapper.Map<IEnumerable<TEntity>>(createDtos);
             await _repository.AddRangeAsync(entities);
@@ -57,7 +56,7 @@ namespace Typhoon.Service
 
         public async Task<BaseResponse> DeleteAsync(int id)
         {
-            var response = new BaseEntityResponse(true);
+            var response = new BaseEntityResponse<TResult>(true);
 
             var entity = await _repository.FindAsync(id);
             if (entity is null)
@@ -73,7 +72,7 @@ namespace Typhoon.Service
 
         public async Task<BaseResponse> DeleteRangeAsync(IEnumerable<int> ids)
         {
-            var response = new BaseEntityResponse(true);
+            var response = new BaseEntityResponse<TResult>(true);
 
             var entityList = new List<TEntity>();
             foreach (var id in ids)
@@ -96,7 +95,7 @@ namespace Typhoon.Service
 
         public async Task<BaseResponse> GetAllAsync()
         {
-            var response = new BaseEntityResponse(true);
+            var response = new BaseEntityResponse<IEnumerable<TResult>>(true);
 
             var result = await _repository.GetAllAsync<TResult>();
             if (result != null)
@@ -107,7 +106,7 @@ namespace Typhoon.Service
 
         public async Task<BaseResponse> GetAsync(int id)
         {
-            var response = new BaseEntityResponse(true);
+            var response = new BaseEntityResponse<TResult>(true);
 
             var result = await _repository.GetAsync(id);
             if (result != null)
@@ -119,7 +118,7 @@ namespace Typhoon.Service
         public async Task<BaseResponse> GetFilteredListAsync(BaseFilter<TEntity> filter)
         {
             //TODO: filtered response ekle
-            var response = new BaseEntityResponse(true);
+            var response = new BaseEntityResponse<IEnumerable<TResult>>(true);
 
             filter ??= new BaseFilter<TEntity>();
             var result = await _repository.ListAsync<TResult>(filter);
@@ -130,7 +129,7 @@ namespace Typhoon.Service
 
         public async Task<BaseResponse> UpdateAsync(int id, TUpdateDto updateDto)
         {
-            var response = new BaseEntityResponse(true);
+            var response = new BaseEntityResponse<TResult>(true);
 
             var entity = await _repository.GetAsync(id);
             if (entity is null)
@@ -139,14 +138,14 @@ namespace Typhoon.Service
             entity.UpdatedDate = DateTime.Now;
             _mapper.Map(updateDto, entity);
             await _unitOfWork.SaveChanges();
-            response.Data = entity;
+            response.Data = _mapper.Map<TResult>(entity);
 
             return response;
         }
 
         public async Task<BaseResponse> UpdateAsync(IEnumerable<TUpdateDto> updateDtos)
         {
-            var response = new BaseEntityResponse(true);
+            var response = new BaseEntityResponse<TResult>(true);
 
 
             var entityList = new List<TEntity>();

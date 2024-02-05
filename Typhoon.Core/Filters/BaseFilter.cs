@@ -6,7 +6,7 @@ namespace Typhoon.Core.Filters
     {
         public int Page { get; set; } = 1;
         public int RecordsToTake { get; set; } = 10;
-        public string OrderBy { get; set; } = "Id desc";
+        public string OrderBy { get; set; } = "Id Desc";
 
         public virtual IQueryable<TEntity> Apply(IQueryable<TEntity> query)
         {

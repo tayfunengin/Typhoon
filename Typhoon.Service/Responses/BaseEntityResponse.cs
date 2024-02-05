@@ -2,15 +2,15 @@
 
 namespace Typhoon.Service.Responses
 {
-    public class BaseEntityResponse : BaseResponse
+    public class BaseEntityResponse<T> : BaseResponse
     {
-        public object? Data { get; set; }
+        public T? Data { get; set; }
 
         public BaseEntityResponse(bool success) : base(success) { }
 
         public BaseEntityResponse(string message) : base(message) { }
 
-        public BaseEntityResponse(object data) : base(true)
+        public BaseEntityResponse(T data) : base(true)
         {
             Data = data;
         }

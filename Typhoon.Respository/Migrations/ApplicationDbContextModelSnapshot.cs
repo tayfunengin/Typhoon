@@ -47,7 +47,9 @@ namespace Typhoon.Respository.Migrations
                         .HasColumnType("nvarchar(350)");
 
                     b.Property<byte[]>("RowVersion")
-                        .HasColumnType("varbinary(max)");
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("smalldatetime");
@@ -60,7 +62,7 @@ namespace Typhoon.Respository.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3078),
+                            CreatedDate = new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7531),
                             Deleted = false,
                             Description = "Television Category",
                             Name = "Television"
@@ -68,7 +70,7 @@ namespace Typhoon.Respository.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3088),
+                            CreatedDate = new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7545),
                             Deleted = false,
                             Description = "Mobile Phone Category",
                             Name = "Mobile Phone"
@@ -112,7 +114,9 @@ namespace Typhoon.Respository.Migrations
                         .HasColumnType("decimal(9,2)");
 
                     b.Property<byte[]>("RowVersion")
-                        .HasColumnType("varbinary(max)");
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("smalldatetime");
@@ -129,7 +133,7 @@ namespace Typhoon.Respository.Migrations
                             Id = 1,
                             Brand = "Samsung",
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3218),
+                            CreatedDate = new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7681),
                             Deleted = false,
                             Description = "Samsung Galaxy A04s 64 GB 4 GB Ram (Samsung Türkiye Garantili)",
                             Name = "Samsung Galaxy A04S",
@@ -140,7 +144,7 @@ namespace Typhoon.Respository.Migrations
                             Id = 2,
                             Brand = "Samsung",
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3222),
+                            CreatedDate = new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7688),
                             Deleted = false,
                             Description = "Samsung Galaxy A54 256 GB 8 GB Ram (Samsung Türkiye Garantili)",
                             Name = "Samsung Galaxy A54",
@@ -151,7 +155,7 @@ namespace Typhoon.Respository.Migrations
                             Id = 3,
                             Brand = "Samsung",
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3224),
+                            CreatedDate = new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7689),
                             Deleted = false,
                             Description = "Samsung Galaxy S24 Ultra 512 GB 12 GB Ram (Samsung Türkiye Garantili)",
                             Name = "Samsung Galaxy S24 Ultra",
@@ -162,7 +166,7 @@ namespace Typhoon.Respository.Migrations
                             Id = 4,
                             Brand = "Samsung",
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3225),
+                            CreatedDate = new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7691),
                             Deleted = false,
                             Description = "Samsung Galaxy S23 Ultra 512 GB 12 GB Ram (Samsung Türkiye Garantili)",
                             Name = "Samsung Galaxy S23 Ultra",
@@ -173,7 +177,7 @@ namespace Typhoon.Respository.Migrations
                             Id = 5,
                             Brand = "Apple",
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3227),
+                            CreatedDate = new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7692),
                             Deleted = false,
                             Description = "iPhone 15 Pro Max 512 GB",
                             Name = "iPhone 15 Pro",
@@ -184,7 +188,7 @@ namespace Typhoon.Respository.Migrations
                             Id = 6,
                             Brand = "Apple",
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3228),
+                            CreatedDate = new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7694),
                             Deleted = false,
                             Description = "iPhone 13 Pro Max 512 GB",
                             Name = "iPhone 13 Pro Max",
@@ -195,7 +199,7 @@ namespace Typhoon.Respository.Migrations
                             Id = 7,
                             Brand = "Apple",
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3230),
+                            CreatedDate = new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7695),
                             Deleted = false,
                             Description = "iPhone 14 Plus 128 GB",
                             Name = "iPhone 14 Plus",
@@ -206,7 +210,7 @@ namespace Typhoon.Respository.Migrations
                             Id = 8,
                             Brand = "Samsung",
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3231),
+                            CreatedDate = new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7696),
                             Deleted = false,
                             Description = "Samsung 65QN85C 65\" 163 Ekran Uydu Alıcılı 4K Ultra HD Smart Neo QLED TV",
                             Name = "Samsung 65QN85C",
@@ -217,7 +221,7 @@ namespace Typhoon.Respository.Migrations
                             Id = 9,
                             Brand = "Samsung",
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3232),
+                            CreatedDate = new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7698),
                             Deleted = false,
                             Description = "Samsung 55CU8000 55\" 138 Ekran Uydu Alıcılı Crystal 4K Ultra HD Smart LED TV",
                             Name = "Samsung 55CU8000",
@@ -228,7 +232,7 @@ namespace Typhoon.Respository.Migrations
                             Id = 10,
                             Brand = "LG",
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3233),
+                            CreatedDate = new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7699),
                             Deleted = false,
                             Description = "LG OLED65CS3VA 65\" 165 Ekran Uydu Alıcılı 4K Ultra HD webOS Smart OLED TV ",
                             Name = "LG OLED65CS3VA",
@@ -239,7 +243,7 @@ namespace Typhoon.Respository.Migrations
                             Id = 11,
                             Brand = "LG",
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3234),
+                            CreatedDate = new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7701),
                             Deleted = false,
                             Description = "LG 65QNED756 65\" 165 Ekran Uydu Alıcılı 4K Ultra HD webOS Smart QNED TV",
                             Name = "LG 65QNED756",

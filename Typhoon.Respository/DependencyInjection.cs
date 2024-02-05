@@ -8,7 +8,10 @@ namespace Typhoon.Respository
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            return services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+
+            return services;
         }
     }
 }

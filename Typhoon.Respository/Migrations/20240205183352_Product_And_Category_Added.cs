@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Typhoon.Respository.Migrations
 {
     /// <inheritdoc />
-    public partial class Product_And_Category_Created : Migration
+    public partial class Product_And_Category_Added : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,7 +24,7 @@ namespace Typhoon.Respository.Migrations
                     CreatedDate = table.Column<DateTime>(type: "smalldatetime", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "smalldatetime", nullable: true),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,7 +45,7 @@ namespace Typhoon.Respository.Migrations
                     CreatedDate = table.Column<DateTime>(type: "smalldatetime", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "smalldatetime", nullable: true),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -60,29 +60,29 @@ namespace Typhoon.Respository.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "CreatedDate", "Deleted", "Description", "Name", "RowVersion", "UpdatedDate" },
+                columns: new[] { "Id", "CreatedDate", "Deleted", "Description", "Name", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3078), false, "Television Category", "Television", null, null },
-                    { 2, new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3088), false, "Mobile Phone Category", "Mobile Phone", null, null }
+                    { 1, new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7531), false, "Television Category", "Television", null },
+                    { 2, new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7545), false, "Mobile Phone Category", "Mobile Phone", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "Brand", "CategoryId", "CreatedDate", "Deleted", "Description", "Name", "Price", "RowVersion", "UpdatedDate" },
+                columns: new[] { "Id", "Brand", "CategoryId", "CreatedDate", "Deleted", "Description", "Name", "Price", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, "Samsung", 2, new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3218), false, "Samsung Galaxy A04s 64 GB 4 GB Ram (Samsung Türkiye Garantili)", "Samsung Galaxy A04S", 5300m, null, null },
-                    { 2, "Samsung", 2, new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3222), false, "Samsung Galaxy A54 256 GB 8 GB Ram (Samsung Türkiye Garantili)", "Samsung Galaxy A54", 16660m, null, null },
-                    { 3, "Samsung", 2, new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3224), false, "Samsung Galaxy S24 Ultra 512 GB 12 GB Ram (Samsung Türkiye Garantili)", "Samsung Galaxy S24 Ultra", 69999m, null, null },
-                    { 4, "Samsung", 2, new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3225), false, "Samsung Galaxy S23 Ultra 512 GB 12 GB Ram (Samsung Türkiye Garantili)", "Samsung Galaxy S23 Ultra", 57599m, null, null },
-                    { 5, "Apple", 2, new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3227), false, "iPhone 15 Pro Max 512 GB", "iPhone 15 Pro", 85699m, null, null },
-                    { 6, "Apple", 2, new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3228), false, "iPhone 13 Pro Max 512 GB", "iPhone 13 Pro Max", 74999m, null, null },
-                    { 7, "Apple", 2, new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3230), false, "iPhone 14 Plus 128 GB", "iPhone 14 Plus", 48749m, null, null },
-                    { 8, "Samsung", 1, new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3231), false, "Samsung 65QN85C 65\" 163 Ekran Uydu Alıcılı 4K Ultra HD Smart Neo QLED TV", "Samsung 65QN85C", 61099m, null, null },
-                    { 9, "Samsung", 1, new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3232), false, "Samsung 55CU8000 55\" 138 Ekran Uydu Alıcılı Crystal 4K Ultra HD Smart LED TV", "Samsung 55CU8000", 25379m, null, null },
-                    { 10, "LG", 1, new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3233), false, "LG OLED65CS3VA 65\" 165 Ekran Uydu Alıcılı 4K Ultra HD webOS Smart OLED TV ", "LG OLED65CS3VA", 69799m, null, null },
-                    { 11, "LG", 1, new DateTime(2024, 2, 4, 15, 25, 12, 174, DateTimeKind.Local).AddTicks(3234), false, "LG 65QNED756 65\" 165 Ekran Uydu Alıcılı 4K Ultra HD webOS Smart QNED TV", "LG 65QNED756", 44513m, null, null }
+                    { 1, "Samsung", 2, new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7681), false, "Samsung Galaxy A04s 64 GB 4 GB Ram (Samsung Türkiye Garantili)", "Samsung Galaxy A04S", 5300m, null },
+                    { 2, "Samsung", 2, new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7688), false, "Samsung Galaxy A54 256 GB 8 GB Ram (Samsung Türkiye Garantili)", "Samsung Galaxy A54", 16660m, null },
+                    { 3, "Samsung", 2, new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7689), false, "Samsung Galaxy S24 Ultra 512 GB 12 GB Ram (Samsung Türkiye Garantili)", "Samsung Galaxy S24 Ultra", 69999m, null },
+                    { 4, "Samsung", 2, new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7691), false, "Samsung Galaxy S23 Ultra 512 GB 12 GB Ram (Samsung Türkiye Garantili)", "Samsung Galaxy S23 Ultra", 57599m, null },
+                    { 5, "Apple", 2, new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7692), false, "iPhone 15 Pro Max 512 GB", "iPhone 15 Pro", 85699m, null },
+                    { 6, "Apple", 2, new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7694), false, "iPhone 13 Pro Max 512 GB", "iPhone 13 Pro Max", 74999m, null },
+                    { 7, "Apple", 2, new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7695), false, "iPhone 14 Plus 128 GB", "iPhone 14 Plus", 48749m, null },
+                    { 8, "Samsung", 1, new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7696), false, "Samsung 65QN85C 65\" 163 Ekran Uydu Alıcılı 4K Ultra HD Smart Neo QLED TV", "Samsung 65QN85C", 61099m, null },
+                    { 9, "Samsung", 1, new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7698), false, "Samsung 55CU8000 55\" 138 Ekran Uydu Alıcılı Crystal 4K Ultra HD Smart LED TV", "Samsung 55CU8000", 25379m, null },
+                    { 10, "LG", 1, new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7699), false, "LG OLED65CS3VA 65\" 165 Ekran Uydu Alıcılı 4K Ultra HD webOS Smart OLED TV ", "LG OLED65CS3VA", 69799m, null },
+                    { 11, "LG", 1, new DateTime(2024, 2, 5, 21, 33, 51, 950, DateTimeKind.Local).AddTicks(7701), false, "LG 65QNED756 65\" 165 Ekran Uydu Alıcılı 4K Ultra HD webOS Smart QNED TV", "LG 65QNED756", 44513m, null }
                 });
 
             migrationBuilder.CreateIndex(
