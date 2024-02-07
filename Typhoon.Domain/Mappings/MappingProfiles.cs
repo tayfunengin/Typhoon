@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Typhoon.Domain.DTOs.Category;
+using Typhoon.Domain.DTOs.Product;
 using Typhoon.Domain.Entities;
 
 namespace Typhoon.Domain.Mappings
@@ -11,6 +12,10 @@ namespace Typhoon.Domain.Mappings
             CreateMap<CategoryCreateDto, Category>().ReverseMap();
             CreateMap<CategoryUpdateDto, Category>().ReverseMap();
             CreateMap<CategoryDto, Category>().ReverseMap();
+
+            CreateMap<ProductUpdateDto, Product>().ReverseMap();
+            CreateMap<ProductCreateDto, Product>().ReverseMap();
+            CreateMap<ProductDto, Product>().ReverseMap();
         }
     }
 }

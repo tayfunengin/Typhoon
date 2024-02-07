@@ -1,20 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Typhoon.Core;
-using Typhoon.Core.Repositories;
-using Typhoon.Domain.DTOs.Category;
-using Typhoon.Domain.Entities;
+using Typhoon.Domain.DTOs.Product;
 using Typhoon.Domain.Filters;
-using Typhoon.Service;
+using Typhoon.Service.Services.Interfaces;
 
 namespace Typhoon.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private readonly IService<Category, CategoryCreateDto, CategoryUpdateDto, CategoryDto, IRepository<Category>> _service;
+        private readonly IProductService _service;
 
-        public CategoryController(IService<Category, CategoryCreateDto, CategoryUpdateDto, CategoryDto, IRepository<Category>> service)
+        public ProductController(IProductService service)
         {
             this._service = service;
         }
@@ -48,7 +46,7 @@ namespace Typhoon.API.Controllers
         /// <returns>List of entities.</returns>
         /// <response code="200">Returns the selected entity</response>     
         [HttpGet("getFilteredList")]
-        public async Task<ActionResult<BaseResponse>> ListAsync([FromQuery] CategoryFilter filter)
+        public async Task<ActionResult<BaseResponse>> ListAsync([FromQuery] ProductFilter filter)
         {
             return await _service.GetFilteredListAsync(filter);
         }
@@ -59,9 +57,9 @@ namespace Typhoon.API.Controllers
         /// <returns>List of entities.</returns>
         /// <response code="200">Returns the selected entity</response>     
         [HttpPost]
-        public async Task<ActionResult<BaseResponse>> PostAsync([FromBody] CategoryCreateDto categoryCreateDto)
+        public async Task<ActionResult<BaseResponse>> PostAsync([FromBody] ProductCreateDto productCreateDto)
         {
-            return await _service.CreateAsync(categoryCreateDto);
+            return await _service.CreateAsync(productCreateDto);
         }
 
         /// <summary>
@@ -73,9 +71,9 @@ namespace Typhoon.API.Controllers
         /// <response code="200">Updates entity</response>
         /// <response code="400">If error occured</response>   
         [HttpPut("{id}")]
-        public async Task<ActionResult<BaseResponse>> PutAsync(int id, [FromBody] CategoryUpdateDto categoryUpdateDto)
+        public async Task<ActionResult<BaseResponse>> PutAsync(int id, [FromBody] ProductUpdateDto productUpdateDto)
         {
-            return await _service.UpdateAsync(id, categoryUpdateDto);
+            return await _service.UpdateAsync(id, productUpdateDto);
         }
 
         /// <summary>

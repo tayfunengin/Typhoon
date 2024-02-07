@@ -29,16 +29,6 @@ namespace Typhoon.Respository.Repositories
         {
             await Context.Set<TEntity>().AddRangeAsync(entities);
         }
-
-        public virtual IQueryable<TEntity> All()
-        {
-            return Context.Set<TEntity>().AsQueryable();
-        }
-        public IQueryable<TEntity> AllAsNoTracking()
-        {
-            return Context.Set<TEntity>().AsNoTracking();
-        }
-
         public async Task<TEntity?> FindAsync(int id)
         {
             return await Context.Set<TEntity>().FindAsync(id);
@@ -58,7 +48,7 @@ namespace Typhoon.Respository.Repositories
 
         public async Task<TEntity?> GetAsync(int id)
         {
-            return await this.All().SingleOrDefaultAsync(x => x.Id == id);
+            return await Context.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<TEntity?> GetAsync(int id, params Expression<Func<TEntity, object>>[] includes)
@@ -72,7 +62,7 @@ namespace Typhoon.Respository.Repositories
 
         public async Task<IEnumerable<TResult>> ListAsync<TResult>(BaseFilter<TEntity> filter)
         {
-            return await this.All()
+            return await Context.Set<TEntity>().AsQueryable()
                 .ApplyFilter(filter)
                 .AsNoTracking()
                 .ProjectTo<TResult>(_mapper.ConfigurationProvider)

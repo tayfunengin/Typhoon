@@ -61,10 +61,23 @@ namespace Typhoon.Service
             var entity = await _repository.FindAsync(id);
             if (entity is null)
                 throw new Exception("Entity Not found");
+
+            _repository.Remove(entity);
+            await _unitOfWork.SaveChanges();
+
+            return response;
+        }
+
+        public async Task<BaseResponse> SoftDeleteAsync(int id)
+        {
+            var response = new BaseEntityResponse<TResult>(true);
+
+            var entity = await _repository.FindAsync(id);
+            if (entity is null)
+                throw new Exception("Entity Not found");
             else
                 entity.Deleted = true;
 
-            _repository.Remove(entity);
             await _unitOfWork.SaveChanges();
 
             return response;
@@ -104,7 +117,7 @@ namespace Typhoon.Service
             return response;
         }
 
-        public async Task<BaseResponse> GetAsync(int id)
+        public virtual async Task<BaseResponse> GetAsync(int id)
         {
             var response = new BaseEntityResponse<TResult>(true);
 
@@ -129,7 +142,7 @@ namespace Typhoon.Service
 
         public async Task<BaseResponse> UpdateAsync(int id, TUpdateDto updateDto)
         {
-            var response = new BaseEntityResponse<TResult>(true);
+            var response = new BaseEntityResponse<TUpdateDto>(true);
 
             var entity = await _repository.GetAsync(id);
             if (entity is null)
@@ -138,7 +151,7 @@ namespace Typhoon.Service
             entity.UpdatedDate = DateTime.Now;
             _mapper.Map(updateDto, entity);
             await _unitOfWork.SaveChanges();
-            response.Data = _mapper.Map<TResult>(entity);
+            response.Data = updateDto;
 
             return response;
         }

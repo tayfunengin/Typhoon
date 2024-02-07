@@ -27,6 +27,6 @@ namespace Typhoon.Service
         Task<BaseResponse> UpdateAsync(IEnumerable<TUpdateDto> sources);
 
         Task<BaseResponse> GetFilteredListAsync(BaseFilter<TEntity> filter);
-
+        Task<BaseResponse> SoftDeleteAsync(int id);
     }
 }

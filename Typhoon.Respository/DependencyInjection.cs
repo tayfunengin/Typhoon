@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Typhoon.Core.Repositories;
+using Typhoon.Domain.Repositories;
 using Typhoon.Respository.Repositories;
 
 namespace Typhoon.Respository
@@ -10,6 +11,7 @@ namespace Typhoon.Respository
         {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             return services;
         }

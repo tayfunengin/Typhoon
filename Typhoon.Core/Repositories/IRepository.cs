@@ -5,8 +5,6 @@ namespace Typhoon.Core.Repositories
 {
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {
-        IQueryable<TEntity> AllAsNoTracking();
-        IQueryable<TEntity> All();
         Task<TEntity?> FindAsync(int id);
         Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
         Task<TEntity?> GetAsync(int id);

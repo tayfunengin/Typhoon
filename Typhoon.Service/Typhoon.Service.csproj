@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Typhoon.Core\Typhoon.Core.csproj" />
+    <ProjectReference Include="..\Typhoon.Domain\Typhoon.Domain.csproj" />
   </ItemGroup>
 
 </Project>
