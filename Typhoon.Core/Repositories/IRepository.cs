@@ -17,5 +17,6 @@ namespace Typhoon.Core.Repositories
         void RemoveRange(IEnumerable<TEntity> entities);
 
         Task<IEnumerable<TResult>> ListAsync<TResult>(BaseFilter<TEntity> filter);
+        Task<int> GetTotalCountAsync(BaseFilter<TEntity> filter);
     }
 }

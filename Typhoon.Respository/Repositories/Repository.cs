@@ -62,11 +62,17 @@ namespace Typhoon.Respository.Repositories
 
         public async Task<IEnumerable<TResult>> ListAsync<TResult>(BaseFilter<TEntity> filter)
         {
-            return await Context.Set<TEntity>().AsQueryable()
+            return await Context.Set<TEntity>().AsNoTracking()
                 .ApplyFilter(filter)
-                .AsNoTracking()
                 .ProjectTo<TResult>(_mapper.ConfigurationProvider)
                 .ToListAsync();
+        }
+
+        public async Task<int> GetTotalCountAsync(BaseFilter<TEntity> filter)
+        {
+            return await Context.Set<TEntity>().AsNoTracking()
+                .ApplyFilter(filter)
+                .CountAsync();
         }
 
         public void Remove(TEntity entity)

@@ -130,14 +130,33 @@ namespace Typhoon.Service
 
         public async Task<BaseResponse> GetFilteredListAsync(BaseFilter<TEntity> filter)
         {
-            //TODO: filtered response ekle
-            var response = new BaseEntityResponse<IEnumerable<TResult>>(true);
+            var response = new BaseEntityResponse<PagedResult<TResult>>(true);
 
             filter ??= new BaseFilter<TEntity>();
             var result = await _repository.ListAsync<TResult>(filter);
 
-            response.Data = result;
+            var pagedResult = new PagedResult<TResult>
+            {
+                Items = result.ToList(),
+                PageNumber = filter.Page,
+                PageSize = filter.RecordsToTake,
+                TotalCount = await GetTotalEntityCountAsync(filter)
+            };
+
+            response.Data = pagedResult;
             return response;
+        }
+
+        public async Task<int> GetTotalEntityCountAsync(BaseFilter<TEntity> filter)
+        {
+
+            if (filter == null)
+                filter = new BaseFilter<TEntity> { IgnoreSkipTake = true };
+            else
+                filter.IgnoreSkipTake = true;
+
+            return await _repository.GetTotalCountAsync(filter);
+
         }
 
         public async Task<BaseResponse> UpdateAsync(int id, TUpdateDto updateDto)
