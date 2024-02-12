@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Typhoon.Core;
 using Typhoon.Core.DTOs;
 using Typhoon.Core.Filters;
@@ -18,20 +19,25 @@ namespace Typhoon.Service
         private readonly TRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IValidatorFactory _validatorFactory;
 
-        public Service(TRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
+        public Service(TRepository repository, IUnitOfWork unitOfWork, IMapper mapper, IValidatorFactory validatorFactory)
         {
             this._repository = repository;
             this._unitOfWork = unitOfWork;
             this._mapper = mapper;
+            this._validatorFactory = validatorFactory;
         }
 
         public async Task<BaseResponse> CreateAsync(TCreateDto createDto)
         {
-            // TODO: validator ekle.
-            var response = new BaseEntityResponse<TResult>(true);
-
             var entity = _mapper.Map<TEntity>(createDto);
+
+            var validationResult = await ValidateAsync(entity);
+            if (!validationResult.Success)
+                return validationResult;
+
+            var response = new BaseEntityResponse<TResult>(true);
             await _repository.AddAsync(entity);
             await _unitOfWork.SaveChanges();
 
@@ -39,15 +45,21 @@ namespace Typhoon.Service
 
             return response;
         }
-
         public async Task<BaseResponse> CreateRangeAsync(IEnumerable<TCreateDto> createDtos)
         {
             var response = new BaseEntityResponse<IEnumerable<TResult>>(true);
 
             var entities = _mapper.Map<IEnumerable<TEntity>>(createDtos);
+
+            foreach (var entity in entities)
+            {
+                var validationResult = await ValidateAsync(entity);
+                if (!validationResult.Success)
+                    return validationResult;
+            }
+
             await _repository.AddRangeAsync(entities);
             await _unitOfWork.SaveChanges();
-
 
             response.Data = _mapper.Map<IEnumerable<TResult>>(entities);
 
@@ -169,6 +181,11 @@ namespace Typhoon.Service
 
             entity.UpdatedDate = DateTime.Now;
             _mapper.Map(updateDto, entity);
+
+            var validationResult = await ValidateAsync(entity);
+            if (!validationResult.Success)
+                return validationResult;
+
             await _unitOfWork.SaveChanges();
             response.Data = updateDto;
 
@@ -195,7 +212,32 @@ namespace Typhoon.Service
 
             _mapper.Map(updateDtos, entityList);
 
+            foreach (var entity in entityList)
+            {
+                var validationResult = await ValidateAsync(entity);
+                if (!validationResult.Success)
+                    return validationResult;
+            }
+
             await _unitOfWork.SaveChanges();
+            return response;
+        }
+
+        internal async Task<ValidationErrorResponse> ValidateAsync(TEntity entity)
+        {
+            ValidationErrorResponse response;
+
+            var validator = _validatorFactory.GetValidator<TEntity>();
+            if (validator != null)
+            {
+                var varlidationResult = await validator.ValidateAsync(entity);
+                if (!varlidationResult.IsValid)
+                    response = new ValidationErrorResponse(varlidationResult.Errors);
+                else
+                    response = new ValidationErrorResponse(true);
+            }
+            else
+                response = new ValidationErrorResponse(true);
 
             return response;
         }

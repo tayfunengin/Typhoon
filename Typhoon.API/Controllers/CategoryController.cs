@@ -5,6 +5,7 @@ using Typhoon.Domain.DTOs.Category;
 using Typhoon.Domain.Entities;
 using Typhoon.Domain.Filters;
 using Typhoon.Service;
+using Typhoon.Service.Responses;
 
 namespace Typhoon.API.Controllers
 {
@@ -61,7 +62,22 @@ namespace Typhoon.API.Controllers
         [HttpPost]
         public async Task<ActionResult<BaseResponse>> PostAsync([FromBody] CategoryCreateDto categoryCreateDto)
         {
-            return await _service.CreateAsync(categoryCreateDto);
+            var response = await _service.CreateAsync(categoryCreateDto);
+            if (!response.Success)
+            {
+                if (response is ValidationErrorResponse)
+                {
+                    ModelState.Clear();
+                    var errorRes = (ValidationErrorResponse)response;
+                    foreach (var error in errorRes.ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                    }
+                    return BadRequest(ModelState);
+                }
+            }
+
+            return response;
         }
 
         /// <summary>
@@ -75,7 +91,23 @@ namespace Typhoon.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<BaseResponse>> PutAsync(int id, [FromBody] CategoryUpdateDto categoryUpdateDto)
         {
-            return await _service.UpdateAsync(id, categoryUpdateDto);
+            var response = await _service.UpdateAsync(id, categoryUpdateDto);
+
+            if (!response.Success)
+            {
+                if (response is ValidationErrorResponse)
+                {
+                    ModelState.Clear();
+                    var errorRes = (ValidationErrorResponse)response;
+                    foreach (var error in errorRes.ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                    }
+                    return BadRequest(ModelState);
+                }
+            }
+
+            return response;
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Typhoon.Core;
 using Typhoon.Core.Repositories;
 using Typhoon.Domain.DTOs.Product;
@@ -14,7 +15,7 @@ namespace Typhoon.Service.Services
         private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
 
-        public ProductService(IProductRepository repository, IUnitOfWork unitOfWork, IMapper mapper) : base(repository, unitOfWork, mapper)
+        public ProductService(IProductRepository repository, IUnitOfWork unitOfWork, IMapper mapper, IValidatorFactory validatorFactory) : base(repository, unitOfWork, mapper, validatorFactory)
         {
             this._repository = repository;
             this._mapper = mapper;

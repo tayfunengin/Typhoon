@@ -7,6 +7,8 @@ namespace Typhoon.Service.Responses
     {
         public IEnumerable<ValidationFailure> ValidationErrors { get; set; }
 
+        public ValidationErrorResponse(bool success) : base(success) { }
+
         public ValidationErrorResponse(List<ValidationFailure> failures) : base("One or more validation errors occurred.")
         {
             ValidationErrors = failures;

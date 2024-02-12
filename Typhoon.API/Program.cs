@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -58,6 +59,15 @@ builder.Services.AddRepositories();
 #endregion
 
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
+
+
+
+
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
 
 var app = builder.Build();
 
