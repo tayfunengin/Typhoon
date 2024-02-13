@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Reflection;
+using Typhoon.API.Middleware;
 using Typhoon.Domain.Mappings;
 using Typhoon.Respository;
 using Typhoon.Respository.Context;
@@ -61,9 +62,6 @@ builder.Services.AddRepositories();
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 
-
-
-
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
@@ -81,6 +79,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 

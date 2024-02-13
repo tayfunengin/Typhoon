@@ -2,6 +2,7 @@
 using FluentValidation;
 using Typhoon.Core;
 using Typhoon.Core.DTOs;
+using Typhoon.Core.Exceptions;
 using Typhoon.Core.Filters;
 using Typhoon.Core.Repositories;
 using Typhoon.Service.Responses;
@@ -72,7 +73,7 @@ namespace Typhoon.Service
 
             var entity = await _repository.FindAsync(id);
             if (entity is null)
-                throw new Exception("Entity Not found");
+                throw new NotFoundException(id);
 
             _repository.Remove(entity);
             await _unitOfWork.SaveChanges();
@@ -86,7 +87,7 @@ namespace Typhoon.Service
 
             var entity = await _repository.FindAsync(id);
             if (entity is null)
-                throw new Exception("Entity Not found");
+                throw new NotFoundException(id);
             else
                 entity.Deleted = true;
 
@@ -104,7 +105,7 @@ namespace Typhoon.Service
             {
                 var result = await _repository.FindAsync(id);
                 if (result is null)
-                    throw new Exception("Not found");
+                    throw new NotFoundException(id);
                 else
                 {
                     result.Deleted = true;
@@ -136,6 +137,8 @@ namespace Typhoon.Service
             var result = await _repository.GetAsync(id);
             if (result != null)
                 response.Data = _mapper.Map<TResult>(result);
+            else
+                throw new NotFoundException(id);
 
             return response;
         }
@@ -177,7 +180,7 @@ namespace Typhoon.Service
 
             var entity = await _repository.GetAsync(id);
             if (entity is null)
-                throw new Exception("Not found");
+                throw new NotFoundException(id);
 
             entity.UpdatedDate = DateTime.Now;
             _mapper.Map(updateDto, entity);
@@ -202,7 +205,7 @@ namespace Typhoon.Service
             {
                 var result = await _repository.GetAsync(source.Id);
                 if (result is null)
-                    throw new Exception("Not found");
+                    throw new NotFoundException(source.Id);
                 else
                 {
                     result.UpdatedDate = DateTime.Now;
