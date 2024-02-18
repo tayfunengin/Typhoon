@@ -233,9 +233,9 @@ namespace Typhoon.Service
             var validator = _validatorFactory.GetValidator<TEntity>();
             if (validator != null)
             {
-                var varlidationResult = await validator.ValidateAsync(entity);
-                if (!varlidationResult.IsValid)
-                    response = new ValidationErrorResponse(varlidationResult.Errors);
+                var validationResult = await validator.ValidateAsync(entity);
+                if (!validationResult.IsValid)
+                    response = new ValidationErrorResponse(validationResult.Errors);
                 else
                     response = new ValidationErrorResponse(true);
             }

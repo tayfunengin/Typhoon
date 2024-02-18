@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Typhoon.Core;
 using Typhoon.Core.DTOs;
 using Typhoon.Core.Filters;
@@ -10,6 +11,7 @@ namespace Typhoon.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BaseController<TEntity, TCreateDto, TUpdateDto, TResult, TFilter, TRepository> : ControllerBase
         where TEntity : BaseEntity
         where TCreateDto : IDto
@@ -62,7 +64,8 @@ namespace Typhoon.API.Controllers
         /// Creates a new entity
         /// </summary>  
         /// <returns>List of entities.</returns>
-        /// <response code="200">Returns the selected entity</response>     
+        /// <response code="200">Returns the selected entity</response>   
+        /// <response code="400">If error occured</response>  
         [HttpPost]
         public async Task<ActionResult<BaseResponse>> PostAsync([FromBody] TCreateDto createDto)
         {

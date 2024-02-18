@@ -13,6 +13,7 @@ namespace Typhoon.Service
         {
             services.AddScoped(typeof(IService<,,,,>), typeof(Service<,,,,>));
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IAuthManager, AuthManager>();
 
             services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
             services.AddValidatorsFromAssemblyContaining<CategoryValidaton>();
