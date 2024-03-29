@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+  <ul class="navigation-items">
+    @if(isLoggedIn){
+    <li routerLinkActive="active">
+      <a mat-button routerLink="categories">
+        <mat-icon>category</mat-icon>
+        Categories</a
+      >
+    </li>
+    <li routerLinkActive="active">
+      <a mat-button routerLink="products">
+        <mat-icon>inventory_2</mat-icon>
+        Products</a
+      >
+    </li>
+    <li class="logout">
+      <a mat-button (click)="logout()"><mat-icon>logout</mat-icon>Logout</a>
+    </li>
+    } @else {
+    <li routerLinkActive="active" class="register">
+      <a mat-button routerLink="/register"
+        ><mat-icon>how_to_reg</mat-icon>Register</a
+      >
+    </li>
+    <li routerLinkActive="active">
+      <a mat-button routerLink="/login"><mat-icon>login</mat-icon>Login</a>
+    </li>
+    }
+  </ul>
+</mat-toolbar>

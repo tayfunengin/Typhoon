@@ -1,0 +1,25 @@
+.navigation-items {
+  display: flex;
+  list-style: none;
+  width: 100%;
+  gap: 30px;
+
+  li {
+    cursor: pointer;
+    padding: 10px;
+  }
+
+  li a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .logout,
+  .register {
+    margin-left: auto;
+  }
+}
+
+.active {
+  background-color: #2f3c87;
+}

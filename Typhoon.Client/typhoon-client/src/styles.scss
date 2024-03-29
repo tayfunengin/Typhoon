@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+//mdc-snackbar__surface
+
+//Snackbar Styles
+.snackbar-error .mdc-snackbar__surface {
+  background-color: #dc3545 !important;
+}
+
+.snackbar-success .mdc-snackbar__surface {
+  background-color: #198754 !important;
+}
+
+.snackbar-warning .mdc-snackbar__surface {
+  background-color: #ffc107 !important;
+}
+
+.snackbar-info .mdc-snackbar__surface {
+  background-color: #0d6efd !important;
+}
+.mdc-button {
+  color: white !important;
+  :hover {
+    opacity: 0.5;
+  }
+}

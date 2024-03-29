@@ -68,10 +68,12 @@ namespace Typhoon.API.Controllers
                     {
                         ModelState.AddModelError(error.Code, error.Description);
                     }
-                    return Unauthorized(ModelState);
+                    return BadRequest(ModelState);
                 }
                 else
-                    Unauthorized(response.Message);
+                    return Ok(response);
+
+
             }
 
             return Ok(response);

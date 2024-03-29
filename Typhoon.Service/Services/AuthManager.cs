@@ -48,7 +48,6 @@ namespace Typhoon.Service.Services
         public async Task<BaseResponse> Login(LoginDto loginDto)
         {
             _user = await _userManager.FindByEmailAsync(loginDto.Email);
-            _logger.LogWarning($"User with email {loginDto.Email} was not found.");
 
             bool isValidUser = await _userManager.CheckPasswordAsync(_user, loginDto.Password);
 
@@ -75,7 +74,7 @@ namespace Typhoon.Service.Services
                 return new AuthorizationErrorResponse(result.Errors.ToList());
             }
 
-            return new BaseEntityResponse<User>(true);
+            return new BaseEntityResponse<User>(true, "Success!. You can login with your credentials.");
         }
 
         public async Task<BaseResponse> VerifyRefreshToken(AuthResponseDto request)

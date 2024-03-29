@@ -10,6 +10,7 @@ namespace Typhoon.Service.Responses
 
         public BaseEntityResponse(string message) : base(message) { }
 
+        public BaseEntityResponse(bool success, string message) : base(success, message) { }
         public BaseEntityResponse(T data) : base(true)
         {
             Data = data;

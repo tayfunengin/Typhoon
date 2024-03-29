@@ -1,0 +1,43 @@
+<div class="header">
+  <h3>Login</h3>
+</div>
+
+@if(!isLoading){
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" />
+    @if(form.get('email')?.hasError('email')){
+    <mat-error>Please enter a valid email address!</mat-error>
+    } @else if (form.get('email')?.hasError('required')) {
+    <mat-error>Email is required!</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password" />
+    @if(form.get('password')?.hasError('required')){
+    <mat-error>Password is required!</mat-error>
+    } @else if (form.get('password')?.hasError('pattern')) {
+    <mat-error
+      >Password must contain at least 8 characters including 1 uppercase, 1
+      lowercase, 1 number, 1 special character!
+    </mat-error>
+    }
+  </mat-form-field>
+
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    [disabled]="form.invalid"
+  >
+    Submit
+  </button>
+</form>
+} @else{
+<div class="spinner-container">
+  <mat-spinner></mat-spinner>
+</div>
+}

@@ -1,0 +1,32 @@
+import { Routes } from '@angular/router';
+import { LoginComponent } from './pages/login/login.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { RouteGuard } from './core/guards/route.quard';
+import { AuthGuard } from './core/guards/auth.quard';
+import { RegisterComponent } from './pages/register/register.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { CategoryListComponent } from './pages/category/category-list.component';
+import { ProductListComponent } from './pages/products/product-list.component';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: WelcomeComponent,
+    pathMatch: 'full',
+    canActivate: [RouteGuard],
+  },
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'categories',
+    component: CategoryListComponent,
+    canActivate: [RouteGuard],
+  },
+  {
+    path: 'products',
+    component: ProductListComponent,
+    canActivate: [RouteGuard],
+  },
+  { path: '**', redirectTo: '404' },
+  { path: '404', pathMatch: 'full', component: NotFoundComponent },
+];
