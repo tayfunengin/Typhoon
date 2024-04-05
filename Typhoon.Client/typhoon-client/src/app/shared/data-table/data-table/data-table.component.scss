@@ -1,0 +1,23 @@
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  tr:hover {
+    background: whitesmoke;
+  }
+}
+th.mat-sort-header-sorted {
+  color: black;
+}
+mat-card-header {
+  margin-bottom: 0.5rem;
+}
+
+.add-new {
+  display: flex;
+}
+.add-button {
+  margin-left: auto;
+}

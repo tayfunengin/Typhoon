@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthResponseDtoApiResponse } from '../model/authResponseDtoApiResponse';
 import { environment } from '../../../environments/environment.development';
 import { BaseApiResponse } from '../model/baseApiResponse';
+import { AuthResponseDto } from '../model/authResponseDto';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +19,14 @@ export class AccountService {
   public apiAccountLogin(
     email: string,
     password: string
-  ): Observable<AuthResponseDtoApiResponse> {
-    return this.httpClient.post<AuthResponseDtoApiResponse>(this.loginUrl, {
-      email: email,
-      password: password,
-    });
+  ): Observable<BaseApiResponse<AuthResponseDto>> {
+    return this.httpClient.post<BaseApiResponse<AuthResponseDto>>(
+      this.loginUrl,
+      {
+        email: email,
+        password: password,
+      }
+    );
   }
 
   public apiAccountRegister(
@@ -30,8 +34,8 @@ export class AccountService {
     password: string,
     firstName: string,
     lastName: string
-  ): Observable<BaseApiResponse> {
-    return this.httpClient.post<BaseApiResponse>(this.registerUrl, {
+  ): Observable<BaseApiResponse<any>> {
+    return this.httpClient.post<BaseApiResponse<any>>(this.registerUrl, {
       email: email,
       password: password,
       firstName: firstName,

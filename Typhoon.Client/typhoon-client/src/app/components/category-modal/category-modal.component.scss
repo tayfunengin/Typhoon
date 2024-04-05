@@ -1,0 +1,13 @@
+.category-form {
+  min-width: 35vw;
+}
+
+mat-form-field {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .category-form {
+    min-width: 80vw;
+  }
+}

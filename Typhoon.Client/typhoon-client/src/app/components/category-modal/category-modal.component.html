@@ -1,0 +1,30 @@
+<div class="category-form">
+  <h2 mat-dialog-title>{{ edit ? "Edit" : "Create" }}{{ " Category" }}</h2>
+
+  <mat-dialog-content [formGroup]="form">
+    <mat-form-field>
+      <input matInput placeholder="Category name" formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        placeholder="Category description"
+        formControlName="description"
+      >
+      </textarea>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="close()">Close</button>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="save()"
+      [disabled]="form.invalid || isLoading"
+    >
+      Save
+    </button>
+  </mat-dialog-actions>
+</div>

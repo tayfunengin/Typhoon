@@ -44,25 +44,21 @@ export class ErrorInterceptorService implements HttpInterceptor {
   private handleError(error: HttpErrorResponse) {
     const statusCode = error.status as HttpStatusCode;
 
-    // const errorMessage =
-    //   Object.values(error.error).join(', ') ?? error?.message;
-
     switch (statusCode) {
       case HttpStatusCode.BadRequest:
         let errorMessage = '';
         if (error.error && typeof error.error === 'object')
-          errorMessage =
-            Object.values(error.error).join(', ') ?? error?.message;
+          errorMessage = Object.values(error.error).join(', ');
         else errorMessage = error.error;
 
         this.notificationService.error(errorMessage ?? error.message);
         break;
       case HttpStatusCode.NotFound:
-        this.notificationService.error(error?.message);
+        this.notificationService.error(error.error ?? error.message);
         this.router.navigateByUrl('404');
         break;
       case HttpStatusCode.InternalServerError:
-        this.notificationService.error(error?.message);
+        this.notificationService.error(error.error ?? error.message);
         break;
       default:
         this.notificationService.error('An unknown error occurred.');
