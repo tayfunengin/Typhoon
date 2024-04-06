@@ -10,10 +10,10 @@ import {
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
-import { MatFormField } from '@angular/material/form-field';
+import { MatError, MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { CategoriesService } from '../../services/categories.service';
-import { withLatestFrom } from 'rxjs';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-category-modal',
@@ -27,6 +27,8 @@ import { withLatestFrom } from 'rxjs';
     ReactiveFormsModule,
     MatFormField,
     MatInput,
+    NgIf,
+    MatError,
   ],
   templateUrl: './category-modal.component.html',
   styleUrl: './category-modal.component.scss',

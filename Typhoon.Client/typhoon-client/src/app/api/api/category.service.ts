@@ -11,6 +11,7 @@ import { PagedResult } from '../model/pagedResult';
 export class CategoryService {
   private baseUrl = environment.apiUrl;
   private getFilteredListUrl = this.baseUrl + 'Category/getFilteredList';
+  private getAll = this.baseUrl + 'Category/getAll';
   private createUrl = this.baseUrl + 'Category';
   private editUrl = this.baseUrl + 'Category';
   private delete = this.baseUrl + 'Category';
@@ -26,13 +27,16 @@ export class CategoryService {
     params = params.append('page', page);
     params = params.append('recordsToTake', recordsToTake);
     params = params.append('orderBy', orderBy);
-    params = params.append('orderBy', orderBy);
     if (categoryName) params = params.append('categoryName', categoryName);
 
     return this.httpClient.get<BaseApiResponse<PagedResult<CategoryDto[]>>>(
       this.getFilteredListUrl,
       { params }
     );
+  }
+
+  public apiCategoryGetAll() {
+    return this.httpClient.get<BaseApiResponse<CategoryDto[]>>(this.getAll);
   }
 
   public apiCategoryPost(name: string, description: string) {

@@ -31,7 +31,7 @@ namespace Typhoon.API.Controllers
         /// </summary>
         /// <returns>All entities.</returns>
         [HttpGet("getAll")]
-        public async Task<ActionResult<BaseResponse>> GetCategoriesAsync()
+        public async Task<ActionResult<BaseResponse>> GetAllAsync()
         {
             return await _service.GetAllAsync();
         }

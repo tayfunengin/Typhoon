@@ -140,7 +140,7 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(CategoryModalComponent, config);
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.categoriesService.getFilteredList(new CategoryFilter());
+      if (result) this.categoriesService.getFilteredList(new CategoryFilter());
     });
   }
 

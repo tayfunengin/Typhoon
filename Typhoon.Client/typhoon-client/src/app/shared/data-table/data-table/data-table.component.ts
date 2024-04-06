@@ -45,6 +45,9 @@ export class DataTableComponent {
   @Input() displayedColumns: string[] = [];
   @Input() templateReferance!: TemplateRef<unknown>;
   @Input() data!: any[];
+  @Input() showObjectProp = false;
+  @Input() showObjectName = '';
+  @Input() showObjectPropValue = 'name';
 
   @Output() onPaginationChange = new EventEmitter<PageEvent>();
   @Output() onSortChange = new EventEmitter<Sort>();

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CategoryService } from '../api/api/category.service';
 import { NotificationService } from '../core/notification.service';
-import { BehaviorSubject, Subject, finalize, tap, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, finalize, tap } from 'rxjs';
 import { CategoryDto } from '../models/categoryDto';
 import { CategoryFilter } from '../models/categoryFilter';
 import { PagedResult } from '../api/model/pagedResult';
@@ -48,14 +48,29 @@ export class CategoriesService {
       .subscribe({
         next: (response) => {
           this._categories.next(response.data);
-          this.notificationService.success(response.message!);
         },
         error: () => {
           this._categories.next(undefined);
         },
       });
   }
+  getAll(): Observable<CategoryDto[] | undefined> {
+    this.isloading = true;
+    const _categories = new Subject<CategoryDto[] | undefined>();
+    this.categoryService
+      .apiCategoryGetAll()
+      .pipe(finalize(() => (this.isloading = false)))
+      .subscribe({
+        next: (response) => {
+          _categories.next(response.data);
+        },
+        error: () => {
+          _categories.next(undefined);
+        },
+      });
 
+    return _categories.asObservable();
+  }
   create(name: string, desc: string) {
     this.isloading = true;
     return this.categoryService.apiCategoryPost(name, desc).pipe(

@@ -1,1 +1,59 @@
-<p>product-list works!</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Product List</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="filter-container">
+      <form [formGroup]="form">
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Search by brand"
+            formControlName="brand"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Search by category"
+            formControlName="category"
+          />
+        </mat-form-field>
+      </form>
+    </div>
+
+    <app-data-table
+      [tableName]="'Category List'"
+      [isLoading]="isLoading"
+      [dataLength]="dataLength"
+      [displayedColumns]="displayedColumns"
+      [templateReferance]="actions"
+      [pageSize]="pageSize"
+      [data]="data"
+      [showObjectProp]="true"
+      showObjectName="category"
+      (onPaginationChange)="paginationChange($event)"
+      (onSortChange)="sortChange($event)"
+      (onAddClicked)="addNew()"
+    >
+    </app-data-table>
+    <ng-template #actions let-element>
+      <div class="action-buttons">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onEditClicked(element)"
+        >
+          Edit
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="onDeleteClicked(element)"
+        >
+          Delete
+        </button>
+      </div>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

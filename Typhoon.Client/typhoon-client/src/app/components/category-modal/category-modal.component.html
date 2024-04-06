@@ -4,6 +4,9 @@
   <mat-dialog-content [formGroup]="form">
     <mat-form-field>
       <input matInput placeholder="Category name" formControlName="name" />
+      @if(form.get('name')?.hasError('maxlength')){
+      <mat-error>Name field might be up to 50 characters long!</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field>

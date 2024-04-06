@@ -1,0 +1,62 @@
+<div class="product-form">
+  <h2 mat-dialog-title>{{ edit ? "Edit" : "Create" }}{{ " Product" }}</h2>
+
+  <mat-dialog-content [formGroup]="form">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Product name" formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        placeholder="Product description"
+        formControlName="description"
+      >
+      </textarea>
+      @if(form.get('description')?.hasError('maxlength')){
+      <mat-error
+        >Description field might be up to 250 characters long!</mat-error
+      >
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Brand</mat-label>
+      <input matInput placeholder="Brand" formControlName="brand" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <input
+        matInput
+        placeholder="Price"
+        formControlName="price"
+        type="number"
+        min="0"
+      />
+    </mat-form-field>
+    @if(categoryLoading){
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select placeholder="Category" formControlName="categoryId">
+        @for (item of categories; track $index) {
+        <mat-option [value]="item.id">{{ item.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="close()">Close</button>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="save()"
+      [disabled]="form.invalid || isLoading"
+    >
+      Save
+    </button>
+  </mat-dialog-actions>
+</div>
