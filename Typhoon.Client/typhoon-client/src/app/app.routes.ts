@@ -5,8 +5,6 @@ import { RouteGuard } from './core/guards/route.quard';
 import { AuthGuard } from './core/guards/auth.quard';
 import { RegisterComponent } from './pages/register/register.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { CategoryListComponent } from './pages/category/category-list.component';
-import { ProductListComponent } from './pages/products/product-list.component';
 
 export const routes: Routes = [
   {
@@ -19,12 +17,18 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   {
     path: 'categories',
-    component: CategoryListComponent,
+    loadComponent: () =>
+      import('./pages/categories/category-list.component').then(
+        (c) => c.CategoryListComponent
+      ),
     canActivate: [RouteGuard],
   },
   {
     path: 'products',
-    component: ProductListComponent,
+    loadComponent: () =>
+      import('./pages/products/product-list.component').then(
+        (c) => c.ProductListComponent
+      ),
     canActivate: [RouteGuard],
   },
   { path: '**', redirectTo: '404' },
