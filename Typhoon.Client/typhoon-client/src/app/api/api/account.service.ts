@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthResponseDtoApiResponse } from '../model/authResponseDtoApiResponse';
 import { environment } from '../../../environments/environment.development';
 import { BaseApiResponse } from '../model/baseApiResponse';
 import { AuthResponseDto } from '../model/authResponseDto';
@@ -15,6 +14,7 @@ export class AccountService {
   private baseUrl = environment.apiUrl;
   private loginUrl = this.baseUrl + 'Account/Login';
   private registerUrl = this.baseUrl + 'Account/Register';
+  private refreshTokenUrl = this.baseUrl + 'Account/RefreshToken';
 
   public apiAccountLogin(
     email: string,
@@ -41,5 +41,20 @@ export class AccountService {
       firstName: firstName,
       lastName: lastName,
     });
+  }
+
+  public apiAccountRefreshToken(
+    userId: string,
+    token: string,
+    refreshToken: string
+  ): Observable<BaseApiResponse<AuthResponseDto>> {
+    return this.httpClient.post<BaseApiResponse<AuthResponseDto>>(
+      this.refreshTokenUrl,
+      {
+        userId: userId,
+        token: token,
+        refreshToken: refreshToken,
+      }
+    );
   }
 }

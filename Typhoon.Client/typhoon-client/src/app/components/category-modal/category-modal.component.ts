@@ -14,6 +14,7 @@ import { MatError, MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { CategoriesService } from '../../services/categories.service';
 import { NgIf } from '@angular/common';
+import { LoadingService } from '../../core/loading.service';
 
 @Component({
   selector: 'app-category-modal',
@@ -45,13 +46,14 @@ export class CategoryModalComponent {
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) private category: CategoryDto,
     private dialogRef: MatDialogRef<CategoryModalComponent>,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,
+    private loadingService: LoadingService
   ) {
     this.edit = category.id != null;
   }
 
   get isLoading() {
-    return this.categoriesService.isloading;
+    return this.loadingService.isLoading;
   }
 
   close() {

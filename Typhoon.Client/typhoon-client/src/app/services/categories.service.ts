@@ -35,8 +35,11 @@ export class CategoriesService {
     this._categoryFilter.next(filter);
   }
 
+  setIsLoading(value: boolean) {
+    this.isloading = value;
+  }
+
   getFilteredList(filter: CategoryFilter) {
-    this.isloading = true;
     this.categoryService
       .apiCategoryGetFilteredList(
         filter.page,
@@ -44,7 +47,6 @@ export class CategoriesService {
         filter.orderBy,
         filter.categoryName
       )
-      .pipe(finalize(() => (this.isloading = false)))
       .subscribe({
         next: (response) => {
           this._categories.next(response.data);
@@ -55,54 +57,42 @@ export class CategoriesService {
       });
   }
   getAll(): Observable<CategoryDto[] | undefined> {
-    this.isloading = true;
     const _categories = new Subject<CategoryDto[] | undefined>();
-    this.categoryService
-      .apiCategoryGetAll()
-      .pipe(finalize(() => (this.isloading = false)))
-      .subscribe({
-        next: (response) => {
-          _categories.next(response.data);
-        },
-        error: () => {
-          _categories.next(undefined);
-        },
-      });
+    this.categoryService.apiCategoryGetAll().subscribe({
+      next: (response) => {
+        _categories.next(response.data);
+      },
+      error: () => {
+        _categories.next(undefined);
+      },
+    });
 
     return _categories.asObservable();
   }
   create(name: string, desc: string) {
-    this.isloading = true;
     return this.categoryService.apiCategoryPost(name, desc).pipe(
       tap((response) => {
         this.notificationService.success(response.message!);
-      }),
-      finalize(() => (this.isloading = false))
+      })
     );
   }
   edit(id: number, categoryDto: CategoryDto) {
-    this.isloading = true;
     return this.categoryService
       .apiCategoryPut(id, categoryDto.name, categoryDto.description)
       .pipe(
         tap((response) => {
           this.notificationService.success(response.message!);
           this.updateCategory(response.data!);
-        }),
-        finalize(() => (this.isloading = false))
+        })
       );
   }
   delete(id: number) {
-    this.isloading = true;
-    this.categoryService
-      .apiCategoryDelete(id)
-      .pipe(finalize(() => (this.isloading = false)))
-      .subscribe({
-        next: (response) => {
-          this.notificationService.success(response.message!);
-          this.removeCategory(id);
-        },
-      });
+    this.categoryService.apiCategoryDelete(id).subscribe({
+      next: (response) => {
+        this.notificationService.success(response.message!);
+        this.removeCategory(id);
+      },
+    });
   }
 
   private updateCategory(dto: CategoryDto) {

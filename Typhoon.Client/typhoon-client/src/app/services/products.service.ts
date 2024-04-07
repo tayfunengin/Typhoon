@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NotificationService } from '../core/notification.service';
 import { ProductService } from '../api/api/product.service';
-import { BehaviorSubject, finalize, tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 import { PagedResult } from '../api/model/pagedResult';
 import {
   ProductCreateDto,
@@ -40,7 +40,6 @@ export class ProductsService {
   }
 
   getFilteredList(filter: ProductFilter) {
-    this.isloading = true;
     this.productService
       .apiProductGetFilteredList(
         filter.page,
@@ -49,7 +48,6 @@ export class ProductsService {
         filter.brand,
         filter.category
       )
-      .pipe(finalize(() => (this.isloading = false)))
       .subscribe({
         next: (response) => {
           this._products.next(response.data);
@@ -61,7 +59,6 @@ export class ProductsService {
   }
 
   create(createDto: ProductCreateDto) {
-    this.isloading = true;
     return this.productService
       .apiProductPost(
         createDto.name,
@@ -73,13 +70,11 @@ export class ProductsService {
       .pipe(
         tap((response) => {
           this.notificationService.success(response.message!);
-        }),
-        finalize(() => (this.isloading = false))
+        })
       );
   }
 
   edit(id: number, updateDto: ProductUpdateDto) {
-    this.isloading = true;
     return this.productService
       .apiProductPut(
         id,
@@ -92,21 +87,16 @@ export class ProductsService {
       .pipe(
         tap((response) => {
           this.notificationService.success(response.message!);
-        }),
-        finalize(() => (this.isloading = false))
+        })
       );
   }
   delete(id: number) {
-    this.isloading = true;
-    this.productService
-      .apiProductDelete(id)
-      .pipe(finalize(() => (this.isloading = false)))
-      .subscribe({
-        next: (response) => {
-          this.notificationService.success(response.message!);
-          this.removeProduct(id);
-        },
-      });
+    this.productService.apiProductDelete(id).subscribe({
+      next: (response) => {
+        this.notificationService.success(response.message!);
+        this.removeProduct(id);
+      },
+    });
   }
 
   private removeProduct(id: number) {

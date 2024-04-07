@@ -8,8 +8,9 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { AuthInterceptorService } from './core/interceptors/aut-interceptor.service';
+import { AuthInterceptorService } from './core/interceptors/auth-interceptor.service';
 import { ErrorInterceptorService } from './core/interceptors/error-interceptor.service';
+import { LoadingInterceptorService } from './core/interceptors/loading-interceptor.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,6 +25,11 @@ export const appConfig: ApplicationConfig = {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptorService,
       multi: true,
     },
   ],

@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AccountsService } from '../../services/accounts.service';
 import { UserDto } from '../../models/userDto';
+import { LoadingService } from '../../core/loading.service';
 
 @Component({
   selector: 'app-register',
@@ -35,7 +36,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private accountsService: AccountsService
+    private accountsService: AccountsService,
+    private loadingService: LoadingService
   ) {}
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -59,7 +61,7 @@ export class RegisterComponent implements OnInit {
   }
 
   get isLoading() {
-    return this.accountsService.isloading;
+    return this.loadingService.isLoading;
   }
 
   checkPasswordValue(control: FormControl): { [prop: string]: boolean } | null {

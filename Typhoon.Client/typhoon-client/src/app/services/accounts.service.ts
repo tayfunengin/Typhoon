@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AccountService } from '../api/api/account.service';
-import { BehaviorSubject, finalize, throwError } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AuthResponseDto } from '../api/model/authResponseDto';
 import { Router } from '@angular/router';
 import { UserDto } from '../models/userDto';
@@ -19,26 +19,19 @@ export class AccountsService {
   private _user = new BehaviorSubject<AuthResponseDto | undefined>(undefined);
   user$ = this._user.asObservable();
 
-  isloading = false;
+  getUser() {
+    return this._user.value;
+  }
 
   login(email: string, password: string) {
-    this.isloading = true;
-
-    this.accountService
-      .apiAccountLogin(email, password)
-      .pipe(
-        finalize(() => {
-          this.isloading = false;
-        })
-      )
-      .subscribe({
-        next: (response) => {
-          if (response.success && response.data) {
-            this.handleAuthentication(response.data);
-          }
-          this.router.navigate(['/']);
-        },
-      });
+    this.accountService.apiAccountLogin(email, password).subscribe({
+      next: (response) => {
+        if (response.success && response.data) {
+          this.handleAuthentication(response.data);
+        }
+        this.router.navigate(['/']);
+      },
+    });
   }
 
   private handleAuthentication(authResponseDto: AuthResponseDto) {
@@ -47,18 +40,12 @@ export class AccountsService {
   }
 
   register(userDto: UserDto) {
-    this.isloading = true;
     this.accountService
       .apiAccountRegister(
         userDto.email,
         userDto.password,
         userDto.firstName,
         userDto.lastName
-      )
-      .pipe(
-        finalize(() => {
-          this.isloading = false;
-        })
       )
       .subscribe({
         next: (response) => {

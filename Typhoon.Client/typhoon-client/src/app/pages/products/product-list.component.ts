@@ -18,7 +18,7 @@ import { ProductFilter } from '../../models/productFilter';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { ProductModalComponent } from '../../components/product-modal/product-modal.component';
-import { CategoriesService } from '../../services/categories.service';
+import { LoadingService } from '../../core/loading.service';
 
 @Component({
   selector: 'app-product-list',
@@ -58,7 +58,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
     private productsService: ProductsService,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    private confirmDialogService: ConfirmDialogService
+    private confirmDialogService: ConfirmDialogService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -96,7 +97,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   get isLoading() {
-    return this.productsService.isloading;
+    return this.loadingService.isLoading;
   }
 
   private setBrandOrCompany(value: string, brand: boolean) {

@@ -27,6 +27,7 @@ import {
   MatSelectModule,
 } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { LoadingService } from '../../core/loading.service';
 
 @Component({
   selector: 'app-product-modal',
@@ -73,7 +74,8 @@ export class ProductModalComponent implements OnInit, OnDestroy {
     private product: ProductUpdateDto | ProductCreateDto,
     private dialogRef: MatDialogRef<ProductModalComponent>,
     private categoriesService: CategoriesService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private loadingService: LoadingService
   ) {
     if ('id' in product) {
       this.edit = true;
@@ -104,7 +106,7 @@ export class ProductModalComponent implements OnInit, OnDestroy {
   }
 
   get isLoading() {
-    return this.productsService.isloading;
+    return this.loadingService.isLoading;
   }
 
   get categoryLoading() {

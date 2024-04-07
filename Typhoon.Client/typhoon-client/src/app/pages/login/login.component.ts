@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { AccountsService } from '../../services/accounts.service';
+import { LoadingService } from '../../core/loading.service';
 
 @Component({
   selector: 'app-auth',
@@ -39,13 +40,14 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private accountsService: AccountsService
+    private accountsService: AccountsService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {}
 
   get isLoading() {
-    return this.accountsService.isloading;
+    return this.loadingService.isLoading;
   }
 
   submit() {

@@ -5,13 +5,14 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpResponse,
   HttpStatusCode,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { NotificationService } from '../notification.service';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment.development';
+import { AccountsService } from '../../services/accounts.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,8 @@ import { Router } from '@angular/router';
 export class ErrorInterceptorService implements HttpInterceptor {
   constructor(
     private notificationService: NotificationService,
-    private router: Router
+    private router: Router,
+    private accountsService: AccountsService
   ) {}
   intercept(
     req: HttpRequest<any>,
@@ -35,13 +37,13 @@ export class ErrorInterceptorService implements HttpInterceptor {
           this.notificationService.error(response.body.message);
       }),
       catchError((error: HttpErrorResponse) => {
-        this.handleError(error);
+        this.handleError(error, req);
         return throwError(() => error);
       })
     );
   }
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse, req: HttpRequest<any>) {
     const statusCode = error.status as HttpStatusCode;
 
     switch (statusCode) {
@@ -56,6 +58,11 @@ export class ErrorInterceptorService implements HttpInterceptor {
       case HttpStatusCode.NotFound:
         this.notificationService.error(error.error ?? error.message);
         this.router.navigateByUrl('404');
+        break;
+      case HttpStatusCode.Unauthorized:
+        if (req.url.startsWith(environment.apiUrl + 'Account/refreshToken')) {
+          this.accountsService.logout();
+        }
         break;
       case HttpStatusCode.InternalServerError:
         this.notificationService.error(error.error ?? error.message);

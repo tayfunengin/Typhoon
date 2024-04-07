@@ -14,6 +14,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CategoryModalComponent } from '../../components/category-modal/category-modal.component';
 import { AsyncPipe } from '@angular/common';
 import { ConfirmDialogService } from '../../core/confirm-dialog.service';
+import { LoadingService } from '../../core/loading.service';
 @Component({
   selector: 'app-category-list',
   standalone: true,
@@ -45,7 +46,8 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     private categoriesService: CategoriesService,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    private confirmDialogService: ConfirmDialogService
+    private confirmDialogService: ConfirmDialogService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -78,7 +80,7 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   }
 
   get isLoading() {
-    return this.categoriesService.isloading;
+    return this.loadingService.isLoading;
   }
 
   private setSearchText(value: string) {
