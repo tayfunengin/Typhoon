@@ -54,7 +54,7 @@
       mat-raised-button
       color="accent"
       (click)="save()"
-      [disabled]="form.invalid || isLoading"
+      [disabled]="form.invalid || isLoading || form.pristine"
     >
       Save
     </button>

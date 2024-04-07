@@ -34,7 +34,7 @@ export class AccountsService {
     });
   }
 
-  private handleAuthentication(authResponseDto: AuthResponseDto) {
+  public handleAuthentication(authResponseDto: AuthResponseDto) {
     this._user.next(authResponseDto);
     localStorage.setItem('typUserData', JSON.stringify(authResponseDto));
   }

@@ -70,6 +70,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         )
         .subscribe({
           next: (response: BaseApiResponse<AuthResponseDto>) => {
+            this.accountsService.handleAuthentication(response.data!);
             req = req.clone({
               headers: new HttpHeaders().set(
                 'Authorization',
