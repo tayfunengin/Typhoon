@@ -5,7 +5,7 @@ import { Sort } from '@angular/material/sort';
 import { CategoriesService } from '../../services/categories.service';
 import { CategoryFilter } from '../../models/categoryFilter';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
-import { DataTableComponent } from '../../shared/data-table/data-table/data-table.component';
+import { DataTableComponent } from '../../shared/data-table/data-table.component';
 import { MatButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';

@@ -7,7 +7,7 @@ import { AsyncPipe } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
-import { DataTableComponent } from '../../shared/data-table/data-table/data-table.component';
+import { DataTableComponent } from '../../shared/data-table/data-table.component';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import {
   ProductCreateDto,
